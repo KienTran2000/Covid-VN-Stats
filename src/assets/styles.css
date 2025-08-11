@@ -1,0 +1,58 @@
+/* ======= THEME TOKENS ======= */
+:root{
+  --primary: #3B82F6;
+  --bg: #0B1220;
+  --bg-soft: #111827;
+  --text: #E5E7EB;
+  --muted: #9CA3AF;
+  --border: rgba(255,255,255,.10);
+  --shadow: 0 8px 24px rgba(0,0,0,.18);
+}
+
+/* streamlit container width */
+.block-container{ max-width: 1200px; padding-top: 20px; padding-bottom: 36px; }
+
+/* typography */
+html, body, [class*="css"]{
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  color: var(--text);
+}
+
+/* ======= CARDS ======= */
+.cv-card{
+  background: rgba(255,255,255,.04);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 16px 18px;
+  box-shadow: var(--shadow);
+  margin-bottom: 18px;
+}
+.cv-card h3{
+  margin: 0 0 10px 0;
+  font-weight: 800;
+  letter-spacing: .2px;
+}
+
+/* ======= KPI ======= */
+.cv-kpi{
+  border-radius: 14px;
+  padding: 14px 14px;
+  border: 1px solid rgba(59,130,246,.35);
+  background: linear-gradient(180deg, rgba(59,130,246,.18), rgba(59,130,246,.06));
+  text-align: center;
+}
+.cv-kpi .label{ font-size: .9rem; color: var(--muted); margin-bottom: 4px; }
+.cv-kpi .value{ font-size: 1.8rem; font-weight: 900; line-height: 1.1; }
+
+/* ======= DATAFRAME TABLE ======= */
+.stDataFrame{ border-radius: 12px; overflow: hidden; }
+tbody tr:nth-child(even){ background: rgba(255,255,255,.03) !important; }
+thead th{ font-weight: 700 !important; }
+.dataframe td, .dataframe th{ padding: 8px 10px !important; }
+
+/* misc */
+hr{ border-color: var(--border); }
+
+/* tighten spacing when cards are side-by-side */
+.cv-card { height: 100%; margin-bottom: 16px; }
+
