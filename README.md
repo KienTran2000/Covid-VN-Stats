@@ -24,7 +24,8 @@
 5. [Licensing, Authors, and Acknowledgements](#licensing-authors-and-acknowledgements)
 ## Project Motivation
 <div align="justify">
-
+The world, as well as Vietnam, has experienced several waves of the COVID-19 pandemic between 2019 and 2022. However, the distribution of cases within Vietnam is uneven, with the impact varying greatly across provinces and age groups.
+While there is a wealth of data available, it is scattered across portals, articles, and raw CSV files that most people cannot easily analyze. This project provides a lightweight, open Streamlit dashboard that turns those rows into clear, shareable insights: which provinces are reporting the most cases, how cases are distributed by age group, and a breakdown of the case status—so that communities, journalists, students, and local officials can understand the status of cases, as well as a data dashboard for long-term research.
 </div>
 
 ## Installation 
