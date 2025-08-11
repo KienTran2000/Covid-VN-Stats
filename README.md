@@ -117,22 +117,12 @@ The project folder **COVID_VN** contains the core source files and assets requir
 ## Result
 
 ## Licensing, Authors, and Acknowledgements
-<div align="justify">
 We would like to thank the following sources and tools that made this project possible:
 
-Vietnam GSO and Ministry of Information and Communications (MIC) for providing access to open SME datasets.
 <p align="justify">
-  GeoJSON Vietnam provinces shapefile from <a href="https://github.com/highcharts/map-collection-dist/blob/master/countries/vn/vn-all.topo.json?short_path=881c496"></a>
+  Data on Covid-19 cases in Vietnam from <a href="https://github.com/highcharts/map-collection-dist/blob/master/countries/vn/vn-all.topo.json?short_path=881c496"></a>
 </p>
-Dash by Plotly – A powerful Python framework for building web-based data applications.
 
-Pandas, Plotly Express, and Geopandas – For efficient data processing and visualisation.
-
-The open-source community for continuous contributions and shared knowledge.
-
-Special thanks to all reviewers and mentors who provided feedback during the dashboard development.
-
-</div>
 
 
 
