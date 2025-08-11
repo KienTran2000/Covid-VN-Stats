@@ -25,6 +25,7 @@
 
 ## Installation 
 ### 1. Project Structure
+```text
 covid-vn/
 ├─ data/
 │  └─ patients.csv            # your CSV
@@ -36,6 +37,8 @@ covid-vn/
 ├─ .streamlit/
 │  └─ config.toml             # (optional) Streamlit theme
 └─ requirements.txt
+```
+
 ### 2. Setup
 Windows (PowerShell)
 ```bash
