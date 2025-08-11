@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="src/assets/img/covid" alt="Banner" width="900" height="250"/>
+  <img src="src/assets/img/covid.png" alt="Banner" width="900" height="250"/>
 </p>
 
 <p align="center">
