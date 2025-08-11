@@ -17,11 +17,15 @@
 
 ## Table of Contents
 
-1. [Installation](#installation)
-2. [Project Motivation](#project-motivation)
+1. [Project Motivation](#project-motivation)
+2. [Installation](#installation)
 3. [File Descriptions](#file-descriptions)
 4. [Results](#results)
 5. [Licensing, Authors, and Acknowledgements](#licensing-authors-and-acknowledgements)
+## Project Motivation
+<div align="justify">
+
+</div>
 
 ## Installation 
 ### 1. Project Structure
@@ -85,43 +89,32 @@ streamlit run src/app.py --server.port 8502
 ```
 Hard refresh in the browser if needed (Ctrl/Cmd + F5).
 
-## Project Motivation
-<div align="justify">
-The rapid digital transformation in Vietnam has positioned ICT adoption among SMEs as a national priority, recognised by key strategies such as the National Digital Transformation Program to 2025, orientation to 2030. However, many local enterprises still face challenges in effectively utilising digital technologies, resulting in uneven ICT adoption and productivity gaps across provinces and enterprise sizes.
 
-This project aims to analyse the current landscape of ICT adoption and productivity among Vietnamese SMEs through an interactive dashboard. By visualising technology usage rates across provinces, enterprise scales (micro, small, medium, large), and comparing key performance indicators such as productivity, the project supports:
-
-Policymakers in identifying digital transformation bottlenecks;
-
-Businesses in benchmarking their ICT maturity level;
-
-Researchers and consultants in evaluating the impact of ICT on SME performance.
-
-The dashboard leverages official datasets and data visualisation tools to make complex information accessible and actionable. With a focus on regional disparities and enterprise segmentation, the project offers data-driven insights to guide targeted support policies, enhance SME competitiveness, and accelerate Vietnam’s digital economy.
-</div>
 
 ## File Descriptions
 <div align="justify">
-The project folder SME_DASHBOARD contains all source files, data, and assets needed to run the Vietnam SME ICT Dashboard. Below is an overview of each component:
+# Project Files — Overview
 
-1. app.py
-Main Python script for launching the Dash web application. It defines the dashboard layout, callbacks for interactivity, data filtering logic, and visualisations (map, bar chart, etc.).
+The project folder **COVID_VN** contains the core source files and assets required to run the Vietnam COVID-19 Case Explorer. Below is an overview of each main component:
 
-2. README.md
-This documentation file explains the installation process, project background, and usage instructions for users or contributors.
+1. **src/web_app.py**  
+   Main Streamlit application. Defines layout (tabs, cards, 2-column chart grid), filters (province, status, nationality), charts (top provinces, age distribution, status overall/stacked), CSV download, and loads external CSS.
+2. **src/config.py**  
+   Central configuration: data path (`CSV_PATH`), raw→standardized column mapping (`COLS`), age bins/labels. Update this file if your CSV uses different column names.
+3. **src/assets/styles.css**  
+   Custom stylesheet for the app (cards, KPIs, tables, container width). Safe to tweak colors/spacing without touching Python code.
+4. **requirements.txt**  
+   Python dependencies: `pandas`, `numpy`, `matplotlib`, `python-dateutil`, `streamlit`.
+5. **README.md**  
+   Installation and run instructions, project structure, troubleshooting, and deployment notes.
+6. **data/patients.csv** *(user-provided; not committed)*  
+   Input dataset. Expected raw columns: `_id, ID, Patient, Age, Location, Status, Nationality`. Place the file here or upload via the app.
 
-2. sme_data.csv
-Preprocessed dataset combining SME ICT adoption indicators and productivity metrics by province, year, and enterprise size.
-
-4. vn_provinces.geojson
-GeoJSON file containing the geographical boundaries of all provinces in Vietnam. Used to generate the interactive choropleth map.
-
-5. venv/
-Auto-generated Python virtual environment (when using python -m venv). Contains installed dependencies like dash, pandas, geopandas, etc.
+7. **.gitignore**  
+   Excludes `.venv/`, `__pycache__/`, `out/`, and `data/*.csv` to avoid committing large or sensitive data.
 </div>
 
 ## Result
-https://private-user-images.githubusercontent.com/77290046/473861087-33aff68f-1e1b-48a6-98a4-4b02b6fe5125.mp4?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NTQyODExNzMsIm5iZiI6MTc1NDI4MDg3MywicGF0aCI6Ii83NzI5MDA0Ni80NzM4NjEwODctMzNhZmY2OGYtMWUxYi00OGE2LTk4YTQtNGIwMmI2ZmU1MTI1Lm1wND9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNTA4MDQlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjUwODA0VDA0MTQzM1omWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTJhMDNkYzg4ZWUxZjFiNzRkYTRjNzhhNmMzYjM2YWVkOTc5NzVmMzRjMjM4NWNkNzczZWZlOGFmNTNiMzhmNmImWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.NAJjHIroxmaGulNMQRtlFc9-pfCf1pNM1uI6Ikz7rTg
 
 ## Licensing, Authors, and Acknowledgements
 <div align="justify">
