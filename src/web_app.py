@@ -8,9 +8,53 @@ pd.set_option("styler.render.max_elements", 1_000_000)  # hoặc số lớn hơn
 
 # ---- config (import works both: `python -m src.app` and `python src/app.py`) ----
 try:
-    from .config import CSV_PATH, COLS, AGE_BINS, AGE_LABELS
+    from .config import (
+        CSV_PATH, PARQUET_PATH, USECOLS_RAW, DTYPES_RAW,
+        COLS, AGE_BINS, AGE_LABELS
+    )
 except Exception:
-    from config import CSV_PATH, COLS, AGE_BINS, AGE_LABELS
+    from config import (
+        CSV_PATH, PARQUET_PATH, USECOLS_RAW, DTYPES_RAW,
+        COLS, AGE_BINS, AGE_LABELS
+    )
+import pandas as pd
+import streamlit as st
+from pathlib import Path
+
+@st.cache_data(show_spinner=True, ttl=600)
+def load_raw_fast(src=None):
+    """
+    If src is None -> read from CSV_PATH with Parquet cache.
+    If src is an uploaded file/path -> read directly from that source (no Parquet cache).
+    """
+    # Trường hợp dùng file mặc định trong dự án -> tận dụng Parquet cache
+    if src is None:
+        try:
+            if PARQUET_PATH.exists() and PARQUET_PATH.stat().st_mtime >= CSV_PATH.stat().st_mtime:
+                return pd.read_parquet(PARQUET_PATH)
+        except Exception:
+            pass
+
+        try:
+            df = pd.read_csv(CSV_PATH, usecols=USECOLS_RAW, dtype=DTYPES_RAW, engine="pyarrow")
+        except Exception:
+            df = pd.read_csv(CSV_PATH, usecols=USECOLS_RAW, dtype=DTYPES_RAW)
+
+        try:
+            df.to_parquet(PARQUET_PATH, index=False)
+        except Exception:
+            pass
+        return df
+
+    # Trường hợp có file upload hoặc đường dẫn khác
+    try:
+        df = pd.read_csv(src, usecols=USECOLS_RAW, dtype=DTYPES_RAW)
+    except Exception:
+        # nếu src là Path/str
+        df = pd.read_csv(str(src), usecols=USECOLS_RAW, dtype=DTYPES_RAW)
+    return df
+
+
 
 ASSETS_CSS = Path(__file__).resolve().parent / "assets" / "styles.css"
 
@@ -31,17 +75,16 @@ def standardize(df: pd.DataFrame) -> pd.DataFrame:
     df = df[keep].copy()
 
     if "province" in df:
-        df["province"] = df["province"].astype(str).str.strip().str.title()
+        df["province"] = df["province"].astype("string").str.strip().str.title().astype("category")
+
     if "age" in df:
-        df["age"] = pd.to_numeric(df["age"], errors="coerce")
-        df["age_group"] = pd.cut(df["age"], bins=AGE_BINS, labels=AGE_LABELS, right=True)
+        age_grp = pd.cut(df["age"].astype("float"), bins=AGE_BINS, labels=AGE_LABELS, right=True)
+        df["age_group"] = age_grp.astype("category")
     else:
-        df["age_group"] = pd.Series(["unknown"] * len(df), dtype="object")
-    if "status" in df:
-        df["status"] = df["status"].astype(str).str.strip().str.lower()
-    if "nationality" in df:
-        df["nationality"] = df["nationality"].astype(str).str.strip().str.title()
+        df["age_group"] = pd.Series(["unknown"] * len(df), dtype="category")
+
     return df
+
 
 def pivot_counts(df: pd.DataFrame, index, col=None):
     if col is None:
@@ -68,6 +111,26 @@ def style_table(df: pd.DataFrame):
 
 def add_grid(ax):
     ax.grid(alpha=.3, linestyle="--", linewidth=.6, axis="y")
+# EOF
+def to_numeric_df(df: pd.DataFrame) -> pd.DataFrame:
+    if df is None or df.empty:
+        return pd.DataFrame()
+    return df.apply(pd.to_numeric, errors="coerce").fillna(0)
+
+def safe_stacked_bar(df: pd.DataFrame, title: str, xlabel: str, ylabel: str):
+    if df is None or df.empty:
+        st.info("No data to plot for current filters.")
+        return
+    df_num = to_numeric_df(df)
+    # nếu vẫn không có cột số
+    if df_num.select_dtypes(include="number").shape[1] == 0:
+        st.info("No numeric columns to plot.")
+        return
+    fig, ax = plt.subplots(figsize=(6,4))
+    df_num.plot(kind="bar", stacked=True, ax=ax)
+    ax.set_title(title); ax.set_xlabel(xlabel); ax.set_ylabel(ylabel)
+    add_grid(ax)
+    st.pyplot(fig, use_container_width=True)
 
 # ---------------- UI ----------------
 st.set_page_config(page_title="COVID VN — Dashboard", layout="wide")
@@ -85,7 +148,7 @@ else:
         st.stop()
     csv_src = uploaded
 
-raw = load_raw(csv_src)
+raw = load_raw_fast(csv_src)
 df = standardize(raw)
 
 st.sidebar.markdown("---")
@@ -192,14 +255,15 @@ with tab_charts:
         with c4:
             card("Status by age group")
             pv = pivot_counts(df_f, "age_group", "status")
-            pv_num = pv.apply(pd.to_numeric, errors="coerce").fillna(0)
-            st.dataframe(pv_num.reset_index(), use_container_width=True)
-            fig4, ax4 = plt.subplots(figsize=(6,4))
-            pv_num.plot(kind="bar", stacked=True, ax=ax4)
-            ax4.set_xlabel("Age group"); ax4.set_ylabel("Cases")
-            add_grid(ax4)
-            st.pyplot(fig4, use_container_width=True)
+            # (tùy chọn) sắp thứ tự nhóm tuổi
+            try:
+                pv = pv.reindex(index=[str(x) for x in AGE_LABELS if str(x) in pv.index])
+            except Exception:
+                pass
+            st.dataframe(pv.reset_index() if not pv.empty else pv, use_container_width=True)
+            safe_stacked_bar(pv, "Status by age group", "Age group", "Cases")
             card_end()
+
 
 
 # ---------- Data table ----------
@@ -210,4 +274,4 @@ with tab_table:
     st.download_button("Download filtered CSV", data=csv_bytes, file_name="filtered_patients.csv", mime="text/csv")
     card_end()
 
-# EOF
+

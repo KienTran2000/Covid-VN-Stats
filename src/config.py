@@ -24,3 +24,21 @@ TAB_DIR = OUT_DIR / "tables"
 # nhóm tuổi
 AGE_BINS = [0, 9, 19, 29, 39, 49, 59, 69, 79, float("inf")]
 AGE_LABELS = ["0-9","10-19","20-29","30-39","40-49","50-59","60-69","70-79","80+"]
+
+from pathlib import Path
+ROOT = Path(__file__).resolve().parents[1]
+
+# Parquet cache (đọc cực nhanh sau lần đầu)
+PARQUET_PATH = ROOT / "data" / "patients.csv"
+
+# Chỉ đọc đúng cột cần từ CSV
+USECOLS_RAW = ["Patient", "Age", "Location", "Status", "Nationality"]
+
+# Ép kiểu nhẹ bộ nhớ + lọc nhanh
+DTYPES_RAW = {
+    "Patient": "string",
+    "Age": "Int16",
+    "Location": "category",
+    "Status": "category",
+    "Nationality": "category",
+}
