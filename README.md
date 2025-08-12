@@ -121,13 +121,13 @@ The project folder **COVID_VN** contains the core source files and assets requir
 <div align="center">
 
   <p>
-    <img src="src/assets/img/Top.png" alt="Top provinces/cities" width="48%">
-     <img src="src/assets/img/states_age.png" alt="Status by age group" width="48%">
+    <img src="src/assets/img/Top.png" alt="Top provinces/cities" width="48%" height="260">
+     <img src="src/assets/img/states_age.png" alt="Status by age group" width="48%" height="260">
   </p>
 
   <p>
-    <img src="src/assets/img/overall.png" alt="Overall status" width="48%">
-    <img src="src/assets/img/Age_Group_dis_png.png" alt="Age-group distribution" width="48%">
+    <img src="src/assets/img/overall.png" alt="Overall status" width="48%" height="260">
+    <img src="src/assets/img/Age_Group_dis_png.png" alt="Age-group distribution" width="48%" height="260">
   </p>
 
 </div>
