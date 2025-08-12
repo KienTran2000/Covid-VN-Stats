@@ -120,6 +120,10 @@ The project folder **COVID_VN** contains the core source files and assets requir
 <!-- 2 rows × 2 images (responsive-ish) -->
 <div align="center">
 
+https://private-user-images.githubusercontent.com/77290046/476860882-1432477e-c936-448c-a2a1-bc19e42497f6.mp4?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NTQ5NzE3MDEsIm5iZiI6MTc1NDk3MTQwMSwicGF0aCI6Ii83NzI5MDA0Ni80NzY4NjA4ODItMTQzMjQ3N2UtYzkzNi00NDhjLWEyYTEtYmMxOWU0MjQ5N2Y2Lm1wND9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNTA4MTIlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjUwODEyVDA0MDMyMVomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPWIzMzM3NzZmNGU4OGZhZGY3MmZjNWYzNjc1ZDkyNjRhNzU0OTcwYmZhNDgwNmQxNDhlMWM4MWNhMGQwNjAyMmMmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.9AIhWAeb4ixQCYC9xK3INNI9V7BqPS4XqkOlYghTVCg
+
+<br>
+
   <p>
     <img src="src/assets/img/Top.png" alt="Top provinces/cities" width="48%" height="260">
      <img src="src/assets/img/states_age.png" alt="Status by age group" width="48%" height="260">
